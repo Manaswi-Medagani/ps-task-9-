@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function findLargestSubarray(arr) {
+  // Initial values
+  let maxSum = -Infinity;
+  let currentSum = 0;
+  let startIndex = 0;
+  let tempStart = 0;
+  let endIndex = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    currentSum += arr[i];
+
+    // Update maxSum and the indices when a new max is found
+    if (currentSum > maxSum) {
+      maxSum = currentSum;
+      startIndex = tempStart;
+      endIndex = i;
+    }
+
+    // If currentSum goes negative, reset it and start a new subarray
+    if (currentSum < 0) {
+      currentSum = 0;
+      tempStart = i + 1;
+    }
+  }
+
+  // Extract the largest subarray using the indices
+  const largestSubarray = arr.slice(startIndex, endIndex + 1);
+  
+  return {
+    largestSubarray,
+    startIndex,
+    endIndex,
+    maxSum
+  };
+}
+
+// Example usage
+const array = [3, -2, 5, -1, 2, -4, 6, -3, 8];
+const result = findLargestSubarray(array);
+console.log("Largest Subarray:", result.largestSubarray); // Largest subarray with max sum
+console.log("Start Index:", result.startIndex);
+console.log("End Index:", result.endIndex);
+console.log("Max Sum:", result.maxSum);
+
+    </script>
+</body>
+</html>
